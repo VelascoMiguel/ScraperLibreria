@@ -31,9 +31,9 @@ async function scrapeData() {
 
   // await autoScroll(page);
 
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  let urls = await obtainUrls(page);
+  // let urls = await obtainUrls(page);
 
   await browser.close();
 
