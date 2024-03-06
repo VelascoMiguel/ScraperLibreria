@@ -70,7 +70,7 @@ async function navigateAndSearch(url, page) {
 
   await page.waitForSelector("#searchboxinput");
 
-  await page.type("#searchboxinput", "Libreria, Flores Capital Federal");
+  await page.type("#searchboxinput", "Libreria, Belgrano Capital Federal");
 
   await page.click("#searchbox-searchbutton");
 }
@@ -152,7 +152,7 @@ async function obtainUrls(page) {
 
 async function autoScroll(page) {
   const selector =
-    '.m6QErb.DxyBCb.kA9KIf.dS8AEf.ecceSd[aria-label="Resultados de Libreria, Flores Capital Federal"][role="feed"][tabindex="-1"]';
+    '.m6QErb.DxyBCb.kA9KIf.dS8AEf.ecceSd[aria-label="Resultados de Libreria, Belgrano Capital Federal"][role="feed"][tabindex="-1"]';
 
   await page.waitForSelector(selector);
 
