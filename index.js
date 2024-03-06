@@ -13,7 +13,7 @@ app.get("/", async (req, res) => {
 app.get("/scrape", async (req, res) => {
   let urls = await scrapeData();
 
-  res.send(`Se ejecuto el script, aqui las URLS`);
+  res.send(`Se ejecuto el script, aqui las URLS ${urls}`);
 });
 
 app.listen(port, () =>{
@@ -68,7 +68,10 @@ async function createPage(browser) {
 async function navigateAndSearch(url, page) {
   await page.goto(url);
 
-  await page.waitForSelector("#searchboxinput");
+  await page.waitForSelector("#searchboxinput",{
+    visible: true,
+    timeout: 10000
+  });
 
   await page.type("#searchboxinput", "Libreria, Belgrano Capital Federal");
 
@@ -89,12 +92,12 @@ async function obtainUrls(page) {
   for (const element of elements) {
     await element.click();
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 5000));
 
     try {
       await page.waitForSelector(".rogA2c.ITvuef", {
         visible: true,
-        timeout: 2000,
+        timeout: 5000,
       });
 
       let url = await page.evaluate(() => {
@@ -117,7 +120,7 @@ async function obtainUrls(page) {
         urls.push(urlFormateada);
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 5000));
     } catch (error) {
       console.log("No tiene URL");
     }
@@ -125,7 +128,7 @@ async function obtainUrls(page) {
 
   console.log(urls);
 
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 5000));
 
   for (const url of urls) {
     try {
@@ -154,7 +157,10 @@ async function autoScroll(page) {
   const selector =
     '.m6QErb.DxyBCb.kA9KIf.dS8AEf.ecceSd[aria-label="Resultados de Libreria, Belgrano Capital Federal"][role="feed"][tabindex="-1"]';
 
-  await page.waitForSelector(selector);
+  await page.waitForSelector(selector,{
+    visible: true,
+    timeout: 10000
+  });
 
   let lastScrollHeight = 0;
 
@@ -174,6 +180,6 @@ async function autoScroll(page) {
 
     lastScrollHeight = currentScrollHeight;
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 5000));
   }
 }
