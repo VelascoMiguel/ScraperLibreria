@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT ? process.env.PORT : 8000;
 
-app.get("/", async (req, res) => {
+app.get("/scrape", async (req, res) => {
   let urls = await scrapeData();
 
   res.send(`Se ejecuto el script, aqui las URLS ${urls}`);
