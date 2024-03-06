@@ -36,7 +36,15 @@ async function scrapeData() {
 }
 
 async function createBrowser() {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: [
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+      "--single-process",
+      "--no-zygote",
+    ],
+    executablePath: '/usr/bin/google-chrome'
+  });
 
   return browser;
 }
