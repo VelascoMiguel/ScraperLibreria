@@ -11,7 +11,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/scrape", async (req, res) => {
-  await scrapeData();
+  let urls = await scrapeData();
 
   res.send(`Se ejecuto el script, aqui las URLS`);
 });
@@ -27,17 +27,17 @@ async function scrapeData() {
 
   await navigateAndSearch(URL_GOOGLE_MAPS, page);
 
-  // await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  // await autoScroll(page);
+  await autoScroll(page);
 
-  // await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  // let urls = await obtainUrls(page);
+  let urls = await obtainUrls(page);
 
   await browser.close();
 
-  // return urls;
+  return urls;
 }
 
 async function createBrowser() {
@@ -150,30 +150,30 @@ async function obtainUrls(page) {
   return urls;
 }
 
-// async function autoScroll(page) {
-//   const selector =
-//     '.m6QErb.DxyBCb.kA9KIf.dS8AEf.ecceSd[aria-label="Resultados de Libreria, Belgrano Capital Federal"][role="feed"][tabindex="-1"]';
+async function autoScroll(page) {
+  const selector =
+    '.m6QErb.DxyBCb.kA9KIf.dS8AEf.ecceSd[aria-label="Resultados de Libreria, Belgrano Capital Federal"][role="feed"][tabindex="-1"]';
 
-//   await page.waitForSelector(selector);
+  await page.waitForSelector(selector);
 
-//   let lastScrollHeight = 0;
+  let lastScrollHeight = 0;
 
-//   while (true) {
-//     const currentScrollHeight = await page.evaluate((selector) => {
-//       const scrollableSection = document.querySelector(selector);
-//       if (scrollableSection) {
-//         scrollableSection.scrollTop = scrollableSection.scrollHeight;
-//         return scrollableSection.scrollHeight;
-//       }
-//       return 0;
-//     }, selector);
+  while (true) {
+    const currentScrollHeight = await page.evaluate((selector) => {
+      const scrollableSection = document.querySelector(selector);
+      if (scrollableSection) {
+        scrollableSection.scrollTop = scrollableSection.scrollHeight;
+        return scrollableSection.scrollHeight;
+      }
+      return 0;
+    }, selector);
 
-//     if (lastScrollHeight === currentScrollHeight) {
-//       break;
-//     }
+    if (lastScrollHeight === currentScrollHeight) {
+      break;
+    }
 
-//     lastScrollHeight = currentScrollHeight;
+    lastScrollHeight = currentScrollHeight;
 
-//     await new Promise((resolve) => setTimeout(resolve, 2000));
-//   }
-// }
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+  }
+}
