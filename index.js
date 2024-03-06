@@ -5,6 +5,11 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT ? process.env.PORT : 8000;
 
+app.get("/", async (req, res) => {
+
+  res.send(`Bienvenido al scraper`);
+});
+
 app.get("/scrape", async (req, res) => {
   let urls = await scrapeData();
 
