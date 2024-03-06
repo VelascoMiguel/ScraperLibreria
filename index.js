@@ -11,9 +11,9 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/scrape", async (req, res) => {
-  let urls = await scrapeData();
+  await scrapeData();
 
-  res.send(`Se ejecuto el script, aqui las URLS ${urls}`);
+  res.send(`Se ejecuto el script, aqui las URLS`);
 });
 
 app.listen(port, () =>{
@@ -37,7 +37,7 @@ async function scrapeData() {
 
   await browser.close();
 
-  return urls;
+  // return urls;
 }
 
 async function createBrowser() {
