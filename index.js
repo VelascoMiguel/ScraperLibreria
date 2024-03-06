@@ -43,7 +43,7 @@ async function createBrowser() {
       "--single-process",
       "--no-zygote",
     ],
-    executablePath: '/usr/bin/google-chrome'
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH
   });
 
   return browser;
